@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 
 const app = express();
 app.use(cors());
@@ -45,9 +45,10 @@ app.get('/search', async (req, res) => {
     let browser;
     try {
         browser = await puppeteer.launch({
-            headless: 'new',
-            args: ['--no-sandbox', '--disable-setuid-sandbox']
-        });
+                headless: 'new',
+    executablePath: '/usr/bin/google-chrome-stable',
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+});
         
         const allHotels = [];
         
